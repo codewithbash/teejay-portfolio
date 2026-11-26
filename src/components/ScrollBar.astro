@@ -1,0 +1,10 @@
+<div id="progress" class="pointer-events-none fixed left-0 top-0 z-[90] h-[3px] w-full origin-left bg-brand" style="transform:scaleX(0)"></div>
+<script>
+  const bar = document.getElementById("progress")!;
+  const update = () => {
+    const max = document.documentElement.scrollHeight - innerHeight;
+    bar.style.transform = `scaleX(${max > 0 ? scrollY / max : 0})`;
+  };
+  addEventListener("scroll", update, { passive: true });
+  update();
+</script>

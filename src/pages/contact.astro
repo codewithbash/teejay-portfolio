@@ -1,0 +1,147 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+// Edit his details here once. They update everywhere on the page.
+const contact = {
+  email: "teejaygreat469@gmail.com",
+  whatsapp: "2348151479915", // no +, spaces or leading zero
+  whatsappDisplay: "+234 815 147 9915",
+  instagram: "https://instagram.com/mxr.teejayyy",
+  behance: "https://behance.net/USERNAME",
+};
+
+const cards = [
+  { label: "EMAIL", value: contact.email, href: `mailto:${contact.email}`, note: "Best for briefs and files" },
+  { label: "WHATSAPP", value: contact.whatsappDisplay, href: `https://wa.me/${contact.whatsapp}`, note: "Quick questions and updates" },
+  { label: "SOCIAL", value: "Instagram · Behance", href: contact.instagram, note: "See more of my work" },
+];
+
+const steps = [
+  { n: "01", title: "You send a message", text: "Tell me about your business and what you need designed." },
+  { n: "02", title: "I reply", text: "I'll ask any questions and send a clear quote." },
+  { n: "03", title: "We start", text: "Once you're happy with the plan, I begin on your first concepts." },
+];
+
+const faqs = [
+  { q: "What do you need from me to get started?", a: "Getting started is easy! I'll need your business or brand name, a brief description of what you do, your target audience, and an idea of what you want to achieve. If you have preferred colours, existing logos, design inspirations, or references, feel free to share them. The more I understand your vision, the better I can bring it to life." },
+  { q: "How long does a project take?", a: "Turnaround time depends on the type and complexity of the project. A simple flyer or social media design typically takes 1–3 business days, while logo designs may take 3–7 business days. Larger projects may require more time. I'll always communicate the expected delivery date before we begin." },
+  { q: "How do payments work?", a: "A 50% deposit is required before work begins, with the remaining 50% due upon approval and before the final files are delivered. Payments can be made through bank transfer or other agreed payment methods. This ensures a smooth and transparent process for both of us." },
+  { q: "Do I get the source files?", a: "Absolutely! You'll receive the final design in the appropriate formats, such as PNG, JPG, or PDF, depending on your project. Editable source files (AI, PSD, or other working files) can also be provided upon request, depending on the project and agreed package." },
+];
+
+const field = "w-full border-b border-ink bg-transparent py-2.5 text-base outline-none focus:border-brand";
+const label = "mt-5 mb-1.5 block text-xs tracking-[1px] text-neutral-600";
+---
+<Layout title="Contact | Teejay's Creativerse" description="Tell me about your project and get a quote.">
+  <!-- Banner -->
+  <section class="bg-brand px-6 py-16 text-white md:px-14 md:py-24">
+    <p class="mb-4 text-xs tracking-[2px] text-white/80">CONTACT</p>
+    <h1 class="max-w-3xl font-serif text-5xl leading-[1.05] md:text-7xl">
+      Let's build something <em>memorable</em> together.
+    </h1>
+    <p class="mt-6 max-w-xl text-lg text-white/85">
+      Have a logo, flyer, brand identity or event design in mind? Tell me about it and I'll get back to you with next steps and a quote.
+    </p>
+    <div class="mt-8 flex flex-wrap gap-3">
+      <a href={`https://wa.me/${contact.whatsapp}`} class="bg-white px-6 py-3.5 text-sm font-medium text-ink active:scale-[0.97] transition-transform">Chat on WhatsApp →</a>
+      <a href={`mailto:${contact.email}`} class="border border-white px-6 py-3.5 text-sm font-medium text-white transition-transform active:scale-[0.97] hover:bg-white hover:text-brand">Send an email</a>
+    </div>
+  </section>
+
+  <!-- Quick contact cards -->
+  <section class="grid gap-4 px-6 py-12 md:grid-cols-3 md:gap-6 md:px-14">
+    {cards.map((c) => (
+      <a href={c.href} class="group border border-neutral-300 p-6 transition-colors hover:border-brand">
+        <small class="text-[11px] tracking-[2px] text-brand">{c.label}</small>
+        <p class="mt-2 font-serif text-2xl group-hover:text-brand">{c.value}</p>
+        <p class="mt-1 text-sm text-neutral-600">{c.note}</p>
+      </a>
+    ))}
+  </section>
+
+  <!-- Form + what happens next -->
+  <section class="grid gap-12 px-6 pb-16 md:grid-cols-2 md:px-14">
+    <div>
+      <p class="mb-4 text-xs tracking-[2px] text-brand">SEND A MESSAGE</p>
+      <h2 class="font-serif text-4xl">Tell me about your project</h2>
+
+      <form id="contact-form" action="https://formspree.io/f/xkjrqjwp" method="POST" class="mt-4">
+        <label for="name" class={label}>NAME</label>
+        <input id="name" name="name" type="text" required class={field} />
+
+        <label for="email" class={label}>EMAIL</label>
+        <input id="email" name="email" type="email" required class={field} />
+
+        <label for="whatsapp" class={label}>WHATSAPP (OPTIONAL)</label>
+        <input id="whatsapp" name="whatsapp" type="text" class={field} />
+
+        <label for="need" class={label}>WHAT DO YOU NEED?</label>
+        <input id="need" name="need" type="text" placeholder="Logo, branding, flyers..." class={field} />
+
+        <label for="message" class={label}>MESSAGE</label>
+        <textarea id="message" name="message" rows="4" required class={field}></textarea>
+
+        <input type="text" name="_gotcha" class="hidden" tabindex="-1" autocomplete="off" />
+
+        <button type="submit" class="mt-7 bg-ink px-6 py-3.5 text-sm font-medium text-white active:scale-[0.97] transition-transform">Send message →</button>
+        <p id="form-status" class="mt-4 text-sm" role="status"></p>
+      </form>
+    </div>
+
+    <div class="bg-tint p-8 md:p-10">
+      <p class="mb-4 text-xs tracking-[2px] text-brand">WHAT HAPPENS NEXT</p>
+      <h2 class="mb-8 font-serif text-4xl">Simple and clear</h2>
+      <ol>
+        {steps.map((s) => (
+          <li class="border-t border-brand/30 py-5">
+            <span class="text-xs tracking-[1px] text-brand">{s.n}</span>
+            <h3 class="mt-1 font-serif text-2xl">{s.title}</h3>
+            <p class="mt-1 text-sm text-neutral-700">{s.text}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="px-6 pb-16 md:px-14">
+    <p class="mb-4 text-xs tracking-[2px] text-brand">FAQ</p>
+    <h2 class="mb-8 font-serif text-4xl">Before you write</h2>
+    <div class="max-w-3xl border-t border-neutral-300">
+      {faqs.map((f) => (
+        <details class="group border-b border-neutral-300 py-5">
+          <summary class="flex cursor-pointer list-none items-center justify-between font-serif text-xl">
+            {f.q}
+            <span class="text-2xl text-brand transition-transform group-open:rotate-45">+</span>
+          </summary>
+          <p class="mt-3 max-w-xl text-neutral-600">{f.a}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+</Layout>
+
+<script>
+  const form = document.getElementById("contact-form") as HTMLFormElement;
+  const status = document.getElementById("form-status")!;
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    status.textContent = "Sending...";
+    try {
+      const res = await fetch(form.action, {
+        method: "POST",
+        body: new FormData(form),
+        headers: { Accept: "application/json" },
+      });
+      if (res.ok) {
+        form.reset();
+        status.textContent = "Thanks! Your message has been sent.";
+      } else {
+        status.textContent = "Something went wrong. Please try again or message on WhatsApp.";
+      }
+    } catch {
+      status.textContent = "Network problem. Please try again.";
+    }
+  });
+</script>

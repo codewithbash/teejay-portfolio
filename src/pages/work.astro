@@ -1,0 +1,35 @@
+---
+import Layout from "../layouts/Layout.astro";
+import WorkGrid from "../components/WorkGrid.jsx";
+import { getImage } from "astro:assets";
+import { projects } from "../data/projects";
+
+const items = await Promise.all(
+  projects.map(async (p) => {
+    const thumb = await getImage({ src: p.image, width: 800, format: "webp" });
+    const full = await getImage({ src: p.image, width: 1400, format: "webp" });
+    return {
+      slug: p.slug,
+      title: p.title,
+      category: p.category,
+      alt: p.alt,
+      src: thumb.src,
+      width: thumb.attributes.width,
+      height: thumb.attributes.height,
+      full: full.src,
+    };
+  })
+);
+---
+<Layout title="Work | Teejay's Creativerse" description="Brand identities, flyers and event designs.">
+  <section class="px-6 md:px-14 pt-10 pb-6">
+    <p class="mb-4 text-xs tracking-[2px] text-brand">PORTFOLIO</p>
+    <h1 class="font-serif text-5xl md:text-6xl">Selected work</h1>
+    <p class="mt-4 mb-8 max-w-md text-neutral-600">
+      Brand identities, flyers and event designs for businesses that want to be remembered.
+    </p>
+  </section>
+  <section class="px-6 md:px-14 pb-16">
+    <WorkGrid client:load items={items} />
+  </section>
+</Layout>

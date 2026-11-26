@@ -1,0 +1,19 @@
+<script>
+  document.documentElement.classList.add("js");
+
+  const els = document.querySelectorAll<HTMLElement>("[data-reveal], [data-wipe]");
+  const reveal = () => {
+    els.forEach((el) => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < innerHeight * 0.9 && rect.bottom > 0) {
+        el.classList.add("is-visible");
+      }
+    });
+  };
+
+  reveal();
+  addEventListener("scroll", () => requestAnimationFrame(reveal), { passive: true });
+  addEventListener("resize", reveal);
+  setTimeout(reveal, 100);
+  setTimeout(reveal, 500);
+</script>

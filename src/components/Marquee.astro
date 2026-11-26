@@ -1,0 +1,16 @@
+---
+const words = ["Logo Design", "Brand Identity", "Flyers & Social", "Event Design", "Mockups"];
+---
+<div class="overflow-hidden border-y border-neutral-300 py-5" aria-hidden="true">
+  <div class="marquee-track">
+    {[0, 1].map(() => (
+      <div class="flex shrink-0 items-center">
+        {words.map((w) => (
+          <span class="whitespace-nowrap px-6 font-serif text-3xl md:text-5xl">
+            {w}<span class="px-6 text-brand">✦</span>
+          </span>
+        ))}
+      </div>
+    ))}
+  </div>
+</div>

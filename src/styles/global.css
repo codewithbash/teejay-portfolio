@@ -1,0 +1,36 @@
+@import "tailwindcss";
+@import "@fontsource-variable/fraunces";
+@import "@fontsource-variable/inter";
+
+@theme {
+  --color-brand: #0133E2;
+  --color-tint: #E6ECFF;
+  --color-paper: #FAFAFA;
+  --color-ink: #111111;
+  --font-serif: "Fraunces Variable", serif;
+  --font-sans: "Inter Variable", sans-serif;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: none; }
+}
+.rise {
+  animation: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: var(--d, 0ms);
+}
+
+@keyframes marquee { to { transform: translateX(-50%); } }
+.marquee-track { display: flex; width: max-content; animation: marquee 28s linear infinite; }
+
+html.js [data-wipe] {
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 1s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+html.js [data-wipe].is-visible { clip-path: inset(0); }
+
+@media (prefers-reduced-motion: reduce) {
+  .rise { animation: none; }
+  .marquee-track { animation: none; }
+  html.js [data-wipe] { clip-path: none; transition: none; }
+}
